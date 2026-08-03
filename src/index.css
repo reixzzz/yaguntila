@@ -1,0 +1,148 @@
+/**
+ * index.css
+ * ----------------------------------------------------------------------------
+ * DESIGN SYSTEM YAGUNTILA
+ * ----------------------------------------------------------------------------
+ * Palet warna (PRD §6):
+ *   --biru-pln    #0F4C81  -> profesional, stabil, terpercaya
+ *   --hijau-sukses #2ECC71 -> berhasil, aman, progress
+ *   --bg-utama    #F7F9FC  -> bersih, nyaman dilihat di luar ruangan
+ *
+ * Filosofi desain: aplikasi ini dipakai petugas LAPANGAN, sering di bawah
+ * sinar matahari, kadang sambil berdiri/bergerak, dengan satu tangan.
+ * Maka setiap keputusan visual mengutamakan: kontras tinggi, target
+ * sentuh besar, hierarki yang jelas tanpa harus membaca lama, dan minim
+ * dekorasi yang tidak perlu.
+ *
+ * Tipografi: menggunakan font sistem (system-ui) — bukan font Latin
+ * dekoratif — karena render font sistem paling tajam & cepat di Android
+ * Chrome low-end, dan ini adalah alat kerja, bukan media promosi.
+ * Untuk angka (nomor meter, ID pelanggan) dipakai font tabular agar
+ * digit sejajar rapi dan mudah diperiksa ulang oleh petugas.
+ * ----------------------------------------------------------------------------
+ */
+
+:root {
+  /* --- Warna utama sesuai brand PRD §6 --- */
+  --biru-pln: #0F4C81;
+  --biru-pln-gelap: #0A3A63;
+  --biru-pln-muda: #E8F0F8;
+  --hijau-sukses: #2ECC71;
+  --hijau-sukses-gelap: #239955;
+  --bg-utama: #F7F9FC;
+
+  /* --- Warna pendukung --- */
+  --merah-error: #E74C3C;
+  --merah-error-bg: #FDEDEB;
+  --kuning-peringatan: #F5A623;
+  --abu-teks: #5B6573;
+  --abu-border: #DCE3EC;
+  --putih: #FFFFFF;
+  --hitam-teks: #1A2433;
+
+  /* --- Tipografi --- */
+  --font-utama: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-angka: 'Roboto Mono', 'SF Mono', ui-monospace, Consolas, monospace;
+
+  /* --- Spasi (skala 4px) --- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* --- Radius & shadow --- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgba(15, 76, 129, 0.06), 0 6px 16px rgba(15, 76, 129, 0.06);
+  --shadow-elevated: 0 10px 32px rgba(15, 76, 129, 0.18);
+  --shadow-fab: 0 6px 20px rgba(15, 76, 129, 0.28);
+
+  /* [V3] Durasi transisi — dipakai konsisten di semua animasi ringan
+     (masuk/keluar card, toast, modal) supaya terasa "satu produk". */
+  --dur-cepat: 140ms;
+  --dur-normal: 220ms;
+  --ease-standar: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Target sentuh minimum (aksesibilitas lapangan) --- */
+  --touch-target: 48px;
+}
+
+/* [V3] Skeleton loading — dipakai di seluruh state "memuat data" pada
+   kartu statistik & daftar, menggantikan spinner polos supaya terasa
+   lebih modern dan memberi bayangan bentuk konten yang akan muncul. */
+@keyframes skeleton-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #E8EDF3 25%, #F3F6FA 37%, #E8EDF3 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-utama);
+  background: var(--bg-utama);
+  color: var(--hitam-teks);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+button {
+  font-family: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+/* Hormati preferensi pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Fokus keyboard tetap terlihat jelas (aksesibilitas) */
+:focus-visible {
+  outline: 3px solid var(--hijau-sukses);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--biru-pln);
+}
